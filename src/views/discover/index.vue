@@ -134,7 +134,7 @@
     <div class="nav">
       <div class="nav_one">
         <div class="nav_tow">
-          <li>今日推荐</li>
+          <li class="opkl">今日推荐</li>
           <li>今日推荐</li>
           <li>今日推荐</li>
           <li>今日推荐</li>
@@ -156,6 +156,9 @@ export default {
 
 <style>
 /* banna */
+body {
+  background: #ebebeb;
+}
 .opn {
   background: #fff;
   width: 100%;
@@ -281,8 +284,11 @@ export default {
   background: #fff;
   margin-bottom: 0.2rem;
   border-bottom: 1px #ececec solid;
+  overflow: auto;
 }
 .nav .nav_one .nav_tow {
+  width: 666px;
+  height: 100%;
 }
 
 .nav .nav_one .nav_tow li {
@@ -290,5 +296,9 @@ export default {
   line-height: 0.8rem;
   display: inline-block;
   margin: 0 0.26667rem;
+}
+
+.nav .nav_one .nav_tow .opkl{
+  color: red;
 }
 </style>

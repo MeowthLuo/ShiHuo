@@ -7,9 +7,12 @@ module.exports={
         //设置自动打开
         open:true,
         proxy:{
-            "/homefis":{
+            "/abc":{
                 target:"http://m.shihuo.cn",
                 changeOrigin:true,
+                pathRewrite:{
+                    "^/abc":""
+                }
             }
         }
     },

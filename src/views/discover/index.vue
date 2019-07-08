@@ -135,13 +135,31 @@
       <div class="nav_one">
         <div class="nav_tow">
           <li class="opkl">今日推荐</li>
-          <li>今日推荐</li>
-          <li>今日推荐</li>
-          <li>今日推荐</li>
-          <li>今日推荐</li>
-          <li>今日推荐</li>
-          <li>今日推荐</li>
-          <li>今日推荐</li>
+          <li>篮球</li>
+          <li>视屏</li>
+          <li>最新资讯</li>
+          <li>潮流风向</li>
+          <li>3C新奇特</li>
+          <li>潮鞋志</li>
+          <li>球鞋90秒</li>
+        </div>
+      </div>
+    </div>
+
+    <!-- show -->
+    <div class="show">
+      <div class="show_one">
+        <div class="show_tow">
+          <li class="show_tow_1">
+            <img
+              src="http://shihuo.hupucdn.com/article/2019-07-08/b7cc43e6b9c63124578ed35e24182482.jpg?imageView2/0/w/626/h/280/interlace/1"
+              alt
+            />
+          </li>
+          <li class="show_tow_2">
+            <p></p>
+            <p></p>
+          </li>
         </div>
       </div>
     </div>
@@ -149,8 +167,19 @@
 </template>
 
 <script>
+import { discoverList } from "../../api/discover";
 export default {
-  name: "discover"
+  name: "discover",
+  async created() {
+    let data = await discoverList();
+    this.dicList = data.data;
+    // console.log(this.dicList)
+  },
+  data() {
+    return {
+      dicList: []
+    };
+  }
 };
 </script>
 
@@ -287,7 +316,7 @@ body {
   overflow: auto;
 }
 .nav .nav_one .nav_tow {
-  width: 666px;
+  width: 11rem;
   height: 100%;
 }
 
@@ -298,7 +327,14 @@ body {
   margin: 0 0.26667rem;
 }
 
-.nav .nav_one .nav_tow .opkl{
+.nav .nav_one .nav_tow .opkl {
   color: red;
+}
+
+/* show */
+.show {
+  background:red;
+  padding-left: 0.26667rem;
+  padding-bottom: 0.53333rem;
 }
 </style>

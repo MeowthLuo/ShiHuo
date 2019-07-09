@@ -134,14 +134,7 @@
     <div class="nav">
       <div class="nav_one">
         <div class="nav_tow">
-          <router-link tag="li" to="/discover/discoverShow">今日推荐</router-link>
-          <router-link tag="li" to="/discover/discoverShow">篮球</router-link>
-          <router-link tag="li" to="/discover/discoverShow">视屏</router-link>
-          <router-link tag="li" to="/discover/discoverShow">最新资讯</router-link>
-          <router-link tag="li" to="/discover/discoverShow">潮流风向</router-link>
-          <router-link tag="li" to="/discover/discoverShow">3C新奇特</router-link>
-          <router-link tag="li" to="/discover/discoverShow">潮鞋志</router-link>
-          <router-link tag="li" to="/discover/discoverShow">3C新奇特</router-link>
+          <router-link v-for="(item,index) in navList" :key="index" tag="li" :to="item.pash" class="nav_s">{{item.tile}}</router-link>
         </div>
       </div>
       <router-view />
@@ -154,9 +147,58 @@ export default {
   name: "discover",
   data() {
     return {
-      dicList: []
+      dicList: [],
+      navList: [
+        {
+          pash: "/discover/discoverShow",
+          tile: "今日推荐"
+        },
+        {
+          pash: "/discover/discoverList",
+          tile: "篮球"
+        },
+        {
+          pash: "/discover/discoverList",
+          tile: "视屏"
+        },
+        {
+          pash: "/discover/discoverList",
+          tile: "最新资讯"
+        },
+        {
+          pash: "/discover/discoverList",
+          tile: "潮流风向"
+        },
+        {
+          pash: "/discover/discoverList",
+          tile: "3C新奇特"
+        },
+        {
+          pash: "/discover/discoverList",
+          tile: "潮鞋志"
+        },
+        {
+          pash: "/discover/discoverList",
+          tile: "球鞋90秒"
+        }
+      ]
     };
-  }
+  },
+  created() {
+    $(function() {
+      $("body").scroll(function() {
+        var aa = $(this).scrollTop();
+        // console.log(aa);
+        if (aa > 351) {
+          document.getElementsByClassName("nav_one")[0].classList.add("pos_pp");
+        } else {
+          document.getElementsByClassName("nav_one")[0].className = "nav_one";
+        }
+      });
+      console.log($("nav_tow").children());
+    });
+  },
+  methods: {}
 };
 </script>
 
@@ -279,6 +321,11 @@ body {
 }
 
 /* nav */
+.pos_pp {
+  position: absolute;
+  top: 0;
+}
+
 .nav {
   width: 100%;
   background: #fff;
@@ -292,6 +339,7 @@ body {
   border-bottom: 1px #c8c6c6 solid;
   overflow: auto;
 }
+
 .nav .nav_one .nav_tow {
   width: 11rem;
   height: 100%;
@@ -299,14 +347,13 @@ body {
 
 .nav .nav_one .nav_tow li {
   height: 0.8rem;
+  float: left;
   line-height: 0.8rem;
   display: inline-block;
   margin: 0 0.26667rem;
 }
 
-.nav .nav_one .nav_tow .opkl {
+.nav .nav_one .nav_tow .router-link-active {
   color: red;
 }
-
-
 </style>

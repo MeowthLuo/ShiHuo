@@ -134,60 +134,24 @@
     <div class="nav">
       <div class="nav_one">
         <div class="nav_tow">
-          <li class="opkl">今日推荐</li>
-          <li>篮球</li>
-          <li>视屏</li>
-          <li>最新资讯</li>
-          <li>潮流风向</li>
-          <li>3C新奇特</li>
-          <li>潮鞋志</li>
-          <li>球鞋90秒</li>
+          <router-link tag="li" to="/discover/discoverShow">今日推荐</router-link>
+          <router-link tag="li" to="/discover/discoverShow">篮球</router-link>
+          <router-link tag="li" to="/discover/discoverShow">视屏</router-link>
+          <router-link tag="li" to="/discover/discoverShow">最新资讯</router-link>
+          <router-link tag="li" to="/discover/discoverShow">潮流风向</router-link>
+          <router-link tag="li" to="/discover/discoverShow">3C新奇特</router-link>
+          <router-link tag="li" to="/discover/discoverShow">潮鞋志</router-link>
+          <router-link tag="li" to="/discover/discoverShow">3C新奇特</router-link>
         </div>
       </div>
-      <div class="show">
-        <div class="show_one">
-          <div class="show_tow">
-            <li class="show_tow_1">
-              <div class="show_tow_2">
-                <img
-                  src="http://shihuo.hupucdn.com/media/201810/1214/e55e46602c732aebac1e12f813ad9373.png"
-                  alt
-                />
-              </div>
-              <div class="show_tow_11">
-                <p class="show_p1">虎扑装备区</p>
-                <p class="show_p2">2019-07-08</p>
-              </div>
-            </li>
-            <li class="show_tow3">
-              <div class="show_tow3_p">球鞋评测丨NIKE Kevin Durant XI--AqIu阿丘</div>
-              <p class="show_tow3_img">
-                <img
-                  src="http://shihuo.hupucdn.com/article/2019-07-08/b7cc43e6b9c63124578ed35e24182482.jpg?imageView2/0/w/626/h/280/interlace/1"
-                  alt
-                />
-              </p>
-              <div class="show_tow3_tag">
-                <span class="like">13</span>
-                <span class="say">0</span>
-              </div>
-            </li>
-          </div>
-        </div>
-      </div>
+      <router-view />
     </div>
   </div>
 </template>
 
 <script>
-import { discoverList } from "../../api/discover";
 export default {
   name: "discover",
-  async created() {
-    let data = await discoverList();
-    this.dicList = data.data;
-    // console.log(this.dicList)
-  },
   data() {
     return {
       dicList: []
@@ -344,81 +308,5 @@ body {
   color: red;
 }
 
-/* show */
-.show {
-  background: #fff;
-  padding-left: 0.2rem;
-  padding-bottom: 0.53333rem;
-  min-height: 16rem;
-}
-.show .show_tow {
-  border-bottom: 1px solid #e6e6e6;
-  padding: 0.1rem 0.3rem 0.1rem 0;
-}
-.show .show_tow .show_tow_1 {
-  /* border-bottom: 1px solid #e6e6e6; */
-  padding: 0.1rem 0.1rem 0.1rem 0;
-}
-.show .show_tow .show_tow_1 .show_tow_2 {
-  width: 0.7rem;
-  height: 0.7rem;
-  float: left;
-  border-radius: 0.66667rem;
-  overflow: hidden;
-  margin-right: 0.26667rem;
-}
-.show .show_tow .show_tow_1 .show_tow_2 img {
-  display: block;
-  width: 100%;
-}
-.show .show_tow .show_tow_1 .show_tow_11 {
-  font: 12px/1.5 Helvetica, sans-serif;
-  color: #444;
-}
-.show .show_tow .show_tow_1 .show_tow_11 .show_p1 {
-  font-size: 18px;
-}
-.show .show_tow .show_tow_1 .show_tow_11 .show_p2 {
-  font-size: 18px;
-  color: #999;
-}
-.show .show_tow .show_tow3 {
-  color: #444;
-  text-decoration: none;
-  margin-left: 0.92rem;
-  font-size: 0.3rem;
-}
-.show .show_tow .show_tow3 .show_tow3_p {
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  word-break: break-all;
-}
-.show .show_tow .show_tow3 .show_tow3_img {
-  margin: 0.2rem 0;
-}
-.show .show_tow .show_tow3 .show_tow3_img img {
-  width: 100%;
-}
-.show .show_tow .show_tow3 .show_tow3_tag .like {
-  background: url(http://sh1.hoopchina.com.cn/fis_static/shihuomobile/static/find/index/like_537e53f.png)
-    left center no-repeat;
-  padding-left: 0.58667rem;
-  background-size: 0.45333rem auto;
-  height: 0.45333rem;
-  display: inline-block;
-  color: #a4a4a4;
-  margin-right: 0.26667rem;
-  line-height: 0.45333rem;
-}
-.show .show_tow .show_tow3 .show_tow3_tag .say {
-  background: url(http://sh1.hoopchina.com.cn/fis_static/shihuomobile/static/find/index/say_348570f.png)
-    left center no-repeat;
-  padding-left: 0.58667rem;
-  background-size: 0.45333rem auto;
-  line-height: 0.45333rem;
-  height: 0.45333rem;
-  color: #a4a4a4;
-}
+
 </style>

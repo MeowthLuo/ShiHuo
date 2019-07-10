@@ -1,6 +1,6 @@
 <template>
     
-    <div id="tabBar">
+    <div id="tabBar" >
     <ul>
         <router-link v-for="(item,index) in tabBars" :key="index" :to="item.path" tag="li">
             <div>
@@ -19,14 +19,14 @@ export default {
         return{
             tabBars:[
                  {
-                    url:"http://sh1.hoopchina.com.cn/images/trademobile/common/index-on.png?201903111600",
+                    url:"//sh1.hoopchina.com.cn/images/trademobile/common/index.png?201903111600",
                     title:"首页",
                     path:"/home"
                 },
                 {
                     url:"http://sh1.hoopchina.com.cn/images/trademobile/common/youhui.png?201903111600",
                     title:"优惠",
-                    path:"/"
+                    path:"/youhui"
                 },
                 {
                     url:"http://sh1.hoopchina.com.cn/images/trademobile/common/find.png?201903111600",
@@ -45,7 +45,13 @@ export default {
                 }
             ]
         }
-    }
+    },
+    // methods:{
+    //     childCss(index,item){
+    //         let a =item.url2;
+    //         item.url=a;
+    //     }
+    // }
 }
 </script>
 <style>

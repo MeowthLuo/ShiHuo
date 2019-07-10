@@ -6,12 +6,16 @@ Vue.use(Router)
 import home from "./home/index.js"
 import discover from "./discover/index.js"
 import equip from "./equip/index.js"
+import hotsell from "./hotsell/index.js"
+import praise from "./praise/index.js"
 
 
 export default new Router({
     routes:[
        home,
        equip,
-       discover
+       discover,
+       hotsell,
+       praise
     ]
     })

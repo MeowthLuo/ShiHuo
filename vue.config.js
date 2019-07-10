@@ -11,8 +11,8 @@ module.exports={
                 target:"http://m.shihuo.cn",
                 changeOrigin:true,
                 pathRewrite: {
-                    '^/abc':''//这里理解成用‘/abc’代替target里面的地址
-                    }
+                    "^/abc": ""
+                  }
             }
         }
     },

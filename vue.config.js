@@ -7,9 +7,12 @@ module.exports={
         //设置自动打开
         open:true,
         proxy:{
-            "/homefis":{
+            "/abc":{
                 target:"http://m.shihuo.cn",
                 changeOrigin:true,
+                pathRewrite: {
+                    '^/abc':''//这里理解成用‘/abc’代替target里面的地址
+                    }
             }
         }
     },
@@ -26,6 +29,8 @@ module.exports={
                 "untils":path.resolve(__dirname,"./src/untils"),
                 "views":path.resolve(__dirname,"./src/views"),
                 "api":path.resolve(__dirname,"./src/api"),
+                "css":path.resolve(__dirname,"./public/css"),
+                "js":path.resolve(__dirname,"./public/js")
             }
         }
     }

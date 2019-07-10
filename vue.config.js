@@ -10,9 +10,9 @@ module.exports={
             "/abc":{
                 target:"http://m.shihuo.cn",
                 changeOrigin:true,
-                pathRewrite: {
-                    "^/abc": ""
-                  }
+                pathRewrite:{
+                    "^/abc":""
+                }
             }
         }
     },

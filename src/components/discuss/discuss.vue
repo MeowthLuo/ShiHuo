@@ -150,11 +150,6 @@ export default {
         width: 100%;
         height: 100%;
     }
-
-    .topic-detail {
-      
-    }
-
     .ad {
         position: relative;
     }

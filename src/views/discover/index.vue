@@ -133,7 +133,7 @@
     <!-- nav -->
     <div class="nav">
       <div class="nav_one">
-        <div class="nav_tow">
+        <div class="nav_tow" @click="fn1">
           <router-link v-for="(item,index) in navList" :key="index" tag="li" :to="item.pash" class="nav_s">{{item.tile}}</router-link>
         </div>
       </div>
@@ -188,17 +188,21 @@ export default {
     $(function() {
       $("body").scroll(function() {
         var aa = $(this).scrollTop();
-        // console.log(aa);
+        console.log(aa);
         if (aa > 351) {
           document.getElementsByClassName("nav_one")[0].classList.add("pos_pp");
         } else {
           document.getElementsByClassName("nav_one")[0].className = "nav_one";
         }
       });
-      console.log($("nav_tow").children());
+      // console.log($("nav_tow").children());
     });
   },
-  methods: {}
+  methods: {
+    fn1(){
+      
+    }
+  }
 };
 </script>
 
@@ -349,7 +353,7 @@ body {
   height: 0.8rem;
   float: left;
   line-height: 0.8rem;
-  display: inline-block;
+  /* display: inline-block; */
   margin: 0 0.26667rem;
 }
 

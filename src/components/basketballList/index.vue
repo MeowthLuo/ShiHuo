@@ -40,7 +40,7 @@ import { basketballList } from "../../api/discover";
 export default {
   name:"basketballList",
   async created() {
-    let data = await BasketballList();
+    let data = await basketballList();
     this.dicList = data.data;
     // console.log(this.dicList)
   },

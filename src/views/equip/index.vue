@@ -341,7 +341,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .top_bar {
   height: .85rem;
   width: 100%;

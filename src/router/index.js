@@ -10,6 +10,8 @@ import column from "./home/column.js"
 import basketball from "./home/basketball.js"
 import discuss from "./home/discuss"
 import activity from "./home/activity"
+import hotsell from "./hotsell/index.js"
+import praise from "./praise/index.js"
 
 
 export default new Router({
@@ -24,7 +26,8 @@ export default new Router({
        column,
        basketball,
        activity,
-       discuss
-       
+       discuss,
+       hotsell,
+       praise
     ]
     })

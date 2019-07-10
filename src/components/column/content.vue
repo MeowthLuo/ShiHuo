@@ -54,7 +54,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
      .content{
         position: absolute;
         left: 0;

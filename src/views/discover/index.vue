@@ -207,7 +207,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* banna */
 body {
   background: #f7f7f7;

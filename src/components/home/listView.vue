@@ -19,7 +19,7 @@
             
             <div  class="list-view">
                
-                <ul class="shihuo-news" v-for="(it, idx) in ulList" :key="idx"  v-if="idx==act">
+                <ul class="shihuo-news" v-for="(it, idx) in ulList" :key="idx"  :v-if="idx==act">
                     <li v-for="(item,index) in homeList[idx]" :key="index">
                         <a class="link">
                             <div class="imgs">
@@ -75,7 +75,6 @@ import{homeList} from "api/home.js"
 import{oneList} from "api/home.js"
 import{twoList} from "api/home.js"
 import{threeList} from "api/home.js"
-import BScroll from 'better-scroll'
 import { log } from 'util';
 export default {
     data(){
@@ -127,10 +126,6 @@ export default {
         let datathree= await threeList()
         this.homeList.push(datathree.data)
     },
-    mounted(){
-        this.srcoll=new BScroll(this.$refs.bscroll)
-        console.log(this.srocll)
-    }
 }
 </script>
 

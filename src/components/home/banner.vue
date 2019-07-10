@@ -40,7 +40,7 @@ export default {
 
 
 
-<style>
+<style scoped>
      .swiper-container{
         width: 100%;
         height: 3.8rem;

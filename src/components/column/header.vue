@@ -19,7 +19,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
        .head{
         background-color: #f7f7f7;
         height: 1rem;

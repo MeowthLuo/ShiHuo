@@ -6,12 +6,13 @@ Vue.use(Router)
 import home from "./home/index.js"
 import discover from "./discover/index.js"
 import equip from "./equip/index.js"
-
+import newest from "./newest/index.js"
 
 export default new Router({
     routes:[
        home,
        equip,
-       discover
+       discover,
+       newest
     ]
     })

@@ -48,7 +48,7 @@
 
     <!-- npplk -->
     <div class="npplk">
-      <div class="npplk_1">
+      <router-link to="/newest" class="npplk_1">
         <li>
           <img
             src="http://sh1.hoopchina.com.cn/fis_static/shihuomobile/static/find/index/icon-zhongce_65770bc.png"
@@ -56,8 +56,8 @@
           />
         </li>
         <p>公测</p>
-      </div>
-      <div class="npplk_1">
+      </router-link>
+      <router-link to="/newest" class="npplk_1">
         <li>
           <img
             src="http://sh1.hoopchina.com.cn/fis_static/shihuomobile/static/find/index/icon-huati_624fa93.png"
@@ -65,8 +65,8 @@
           />
         </li>
         <p>栏目</p>
-      </div>
-      <div class="npplk_1">
+      </router-link>
+      <router-link to="/newest" class="npplk_1">
         <li>
           <img
             src="http://sh1.hoopchina.com.cn/fis_static/shihuomobile/static/find/index/icon-new_86b6c1f.png"
@@ -74,8 +74,8 @@
           />
         </li>
         <p>最新</p>
-      </div>
-      <div class="npplk_1">
+      </router-link>
+      <router-link to="/newest" class="npplk_1">
         <li>
           <img
             src="http://sh1.hoopchina.com.cn/fis_static/shihuomobile/static/find/index/icon-hot_2a01f3a.png"
@@ -83,7 +83,7 @@
           />
         </li>
         <p>最热</p>
-      </div>
+      </router-link>
     </div>
 
     <!-- mian -->
@@ -134,7 +134,7 @@
     <div class="nav">
       <div class="nav_one">
         <div class="nav_tow" @click="fn1">
-          <router-link v-for="(item,index) in navList" :key="index" tag="li" :to="item.pash" class="nav_s">{{item.tile}}</router-link>
+          <router-link v-for="(item,index) in navList" :key="index" tag="li" :to="item.path" class="nav_s">{{item.tile}}</router-link>
         </div>
       </div>
       <router-view />
@@ -150,45 +150,46 @@ export default {
       dicList: [],
       navList: [
         {
-          pash: "/discover/discoverShow",
+          path: "/discover/discoverShow",
           tile: "今日推荐"
         },
         {
-          pash: "/discover/basketballList",
+          path: "/discover/basketballList",
           tile: "篮球"
         },
         {
-          pash: "/discover/basketballList",
+          path: "/discover/basketballList",
           tile: "视屏"
         },
         {
-          pash: "/discover/basketballList",
+          path: "/discover/basketballList",
           tile: "最新资讯"
         },
         {
-          pash: "/discover/basketballList",
+          path: "/discover/basketballList",
           tile: "潮流风向"
         },
         {
-          pash: "/discover/basketballList",
+          path: "/discover/basketballList",
           tile: "3C新奇特"
         },
         {
-          pash: "/discover/basketballList",
+          path: "/discover/basketballList",
           tile: "潮鞋志"
         },
         {
-          pash: "/discover/basketballList",
+          path: "/newest",
           tile: "球鞋90秒"
         }
-      ]
+      ],
+      
     };
   },
   created() {
     $(function() {
       $("body").scroll(function() {
         var aa = $(this).scrollTop();
-        console.log(aa);
+        // console.log(aa);
         if (aa > 351) {
           document.getElementsByClassName("nav_one")[0].classList.add("pos_pp");
         } else {
@@ -200,7 +201,7 @@ export default {
   },
   methods: {
     fn1(){
-      
+      console.log(document.getElementsByTagName("body")[0].scrollTop = 351)
     }
   }
 };

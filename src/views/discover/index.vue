@@ -154,31 +154,31 @@ export default {
           tile: "今日推荐"
         },
         {
-          pash: "/discover/discoverList",
+          pash: "/discover/basketballList",
           tile: "篮球"
         },
         {
-          pash: "/discover/discoverList",
+          pash: "/discover/basketballList",
           tile: "视屏"
         },
         {
-          pash: "/discover/discoverList",
+          pash: "/discover/basketballList",
           tile: "最新资讯"
         },
         {
-          pash: "/discover/discoverList",
+          pash: "/discover/basketballList",
           tile: "潮流风向"
         },
         {
-          pash: "/discover/discoverList",
+          pash: "/discover/basketballList",
           tile: "3C新奇特"
         },
         {
-          pash: "/discover/discoverList",
+          pash: "/discover/basketballList",
           tile: "潮鞋志"
         },
         {
-          pash: "/discover/discoverList",
+          pash: "/discover/basketballList",
           tile: "球鞋90秒"
         }
       ]

@@ -13,5 +13,10 @@ export default {
             component: () => import("../../components/discoverShow/index.vue"),
             name: "discoverShow",
         },
+        {
+            path: "basketballList",
+            component: () => import("../../components/basketballList/index.vue"),
+            name: "basketballList",
+        },
     ]
 }

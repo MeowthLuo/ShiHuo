@@ -19,7 +19,7 @@
             
             <div  class="list-view">
                
-                <ul class="shihuo-news" v-for="(it, idx) in ulList" :key="idx"  :v-if="idx==act">
+                <ul class="shihuo-news" v-for="(it, idx) in ulList" :key="idx"  v-if="idx==act">
                     <li v-for="(item,index) in homeList[idx]" :key="index">
                         <a class="link">
                             <div class="imgs">

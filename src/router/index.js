@@ -12,6 +12,7 @@ import discuss from "./home/discuss"
 import activity from "./home/activity"
 import hotsell from "./hotsell/index.js"
 import praise from "./praise/index.js"
+import newest from "./newest/index.js"
 
 
 export default new Router({
@@ -28,6 +29,7 @@ export default new Router({
        activity,
        discuss,
        hotsell,
-       praise
+       praise,
+       newest
     ]
     })

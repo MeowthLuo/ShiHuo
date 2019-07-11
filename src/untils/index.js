@@ -1,32 +1,32 @@
-import axios from "axios"
- //里面是自己想要什么配置就写什么配置
-const http =axios.create({
-    //设置超时请求
-    timeout:1000,
-    //设置是否可以跨域携带cookies
-    withCredentials:true,
-    // baseURL:"http://m.shihuo.cn"
+import axios from "axios";
 
+const http = axios.create({
+    timeout:5000,
+    withCredentials:true
 })
-//请求的拦截器
-http.interceptors.request.use(function(config){
-    if(config.method=="get"){
-        config.params={...config.data}
-    }else if(config.method=="post"){
-        config.headers = {"content-type":"application/x-www-form-urlencoded"}
+
+http.interceptors.request.use((config)=>{
+    if(config.method == "get"){
+        //config.params = {...config.data}
+    }else if(config.method =="post"){
+        config.headers["content-type"] = "application/x-www-form-urlencoded";
     }
+
     return config
+},(err)=>{
+    return Promise.reject(err);
 })
 
-//响应的拦截器
-http.interceptors.response.use(function(res){
-    if(res.status=="200"){
-        
-        return res.data
+
+http.interceptors.response.use((res)=>{
+    if(res.status == 200){
+        return res.data;
     }
 },(err)=>{
-    
+    return Promise.reject(err);
 })
+
+
 export default (method,url,data={})=>{
     if(method == "get"){
        
@@ -34,6 +34,6 @@ export default (method,url,data={})=>{
             params:data
         })
     }else if(method == "post"){
-         return http.post(url,data)
+        return http.post(url,data);
     }
 }

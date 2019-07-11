@@ -1,5 +1,5 @@
 <template>
-  <div class="mainBox indexpage">
+  <div class="equipBox indexpage">
     <div id="equip">
       <div class="top_bar">
         <form class="searchBox" >
@@ -7,16 +7,16 @@
             <div class="search">
               <input
                 type="text"
+                v-model="inputVal"
                 class="input"
-                name="keywords"
-                value
                 placeholder="搜索全网低价好券"
                 id="searchVal"
+                @click="showshow()"
               />
             </div>
           </div>
-          <a href="javascript:void(0);" class="cancel">取消</a>
-          <div class="ico_list">
+          <a href="javascript:void(0);" :class="{show,cancel}" v-show="showit" @click="isnotshow()">取消</a>
+          <div class="ico_list" v-show="!showit">
             <img
               src="http://sh1.hoopchina.com.cn/fis_static/shihuomobile/static/zhuangbei/widget/header/head_list_4a4f511.png"
             />
@@ -35,8 +35,33 @@
           </div>
         </form>
       </div>
-      <div class="search_page"></div>
     </div>
+<div class="search_page" id="search-page" style v-show="showit">
+    <div class="inner" id="searchWrapper">
+      <dl>
+        <dt>热门搜索</dt>
+        <dd class="sear_hot">
+          <a href="http://www.shihuo.cn/column/362.html#qk=rs"></a>
+        </dd>
+        <dt class="his" style="display: none;">历史搜索</dt>
+        <dd class="sear_record clearfix">
+          <ul id="history" class="his" style="display: none;"></ul>
+        </dd>
+        <dd>
+          <p class="clear_history his" style="display: none;">
+            <a href="javascript:void(0);" id="clear_history">清空历史记录</a>
+          </p>
+        </dd>
+      </dl>
+    </div>
+    <div class="inner" id="searchRelate" style>
+      <ul>
+        <li v-for="(word,dx) in listVal" :key="dx">
+          <a href="/search/searchResult/goods?keywords=aj1">{{ word }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
     <div class="menu-area">
       <ul class="clearfix">
         <router-link to="/hotsell" tag="li">
@@ -333,16 +358,43 @@
 
 <script>
 import Equiplist from "components/equiplist";
+import {getSearch} from "api/search";
 export default {
   name: "equip",
   components: {
     Equiplist
+  },
+  watch:{
+    async inputVal(newVal){
+      let data = await getSearch(newVal)
+     this.listVal = data.data;
+      
+    }
+  },
+  data(){
+    return{
+      showit:false,
+      show:false,
+      cancel:"cancel",
+      inputVal:"",
+      listVal:[]
+    }
+  },
+  methods:{
+    showshow(){
+      this.showit=true;
+      this.show=true;
+    },
+    isnotshow(){
+      this.showit=false;
+      this.inputVal=""
+    }
   }
 };
 </script>
 
-<style scoped>
-.top_bar {
+<style >
+.equipBox .top_bar {
   height: .85rem;
   width: 100%;
   background: #f7f7f7;
@@ -352,31 +404,40 @@ export default {
   z-index: 10;
 }
 
-.mainBox {
+.equipBox {
   padding-top: 0.85rem;
   overflow-y: scroll;
 }
-.top_bar .searchBox .search_box {
+.top_bar .cancel.show {
+    display: block;
+    float: left;
+    font-size: .3rem;
+    color: #666;
+    width: .7rem;
+    text-align: center;
+    height: .73333rem;
+    line-height: .73333rem;
+    margin: .1rem 0;
+}
+.equipBox .top_bar .searchBox .search_box {
     float: left;
     width: 100%;
     overflow: hidden;
     height: 100%;
 }
-.searchBox{
+.equipBox .searchBox{
   height: .85rem;
 }
-.top_bar .cancel {
-    display: none;
-}
-.top_bar .searchBox .search_box .search {
-    width: 8.8rem;
+
+.equipBox .top_bar .searchBox .search_box .search {
+    width: 6.6rem;
     float: left;
     padding-left: .26667rem;
     position: relative;
     height: 100%;
 }
 
-.top_bar .searchBox .search_box .search .input {
+.equipBox .top_bar .searchBox .search_box .search .input {
     width: 6.4rem;
     border-radius: .10667rem;
     margin: .2rem 0;
@@ -390,7 +451,7 @@ export default {
     background-size: .34667rem;
     overflow: hidden;
 }
-.top_bar .ico_list {
+.equipBox .top_bar .ico_list {
     position: absolute;
     right: 0;
     top: 0;
@@ -412,61 +473,136 @@ export default {
     display: -moz-flex;
     display: flex;
 }
-.top_bar .ico_list {
+.equipBox .top_bar .ico_list {
     height: 100%;
     width: 10%;
 }
-.top_bar .ico_list img {
+.equipBox .top_bar .ico_list img {
     width: 100%;
     height: auto;
 }
-
-.menu-area li {
+.equipBox .search_page {
+    background: #fff;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    padding-top: 1.26667rem;
+    overflow-y: scroll;
+    z-index: 9;
+}
+.equipBox .search_page #searchWrapper {
+    width: 100%;
+    background: #fff;
+    position: absolute;
+    z-index: 81;
+    left: 0;
+    top: 1.26667rem;
+}
+.search_page dl {
+    background: #fff;
+    padding: .26667rem;
+    padding-right: 0;
+    padding-bottom: 0;
+}
+.search_page dl dt {
+    font-size: .34667rem;
+    color: #999;
+    margin-bottom: .26667rem;
+}
+.search_page dl .sear_hot {
+    margin-bottom: .13333rem;
+}
+.search_page dl .sear_hot a {
+    font-size: .34667rem;
+    display: inline-block;
+    margin-right: .06667rem;
+    margin-bottom: .26667rem;
+    border: 1px solid #aeaeae;
+    color: #444;
+    padding: .13333rem;
+    border-radius: 3px;
+}
+.clearfix:before, .clearfix:after {
+    display: table;
+    content: "";
+    line-height: 0;
+}
+.clearfix:before, .clearfix:after {
+    display: table;
+    content: "";
+    line-height: 0;
+    clear: both;
+}
+.search_page #searchRelate {
+    background: #fff;
+    overflow: hidden;
+    position: absolute;
+    z-index: 82;
+    left: 0;
+    top: 1.26667rem;
+    width: 100%;
+    height: 100%;
+}
+.search_page #searchRelate li {
+    height: 1.18667rem;
+    line-height: 1.18667rem;
+    padding-left: .26667rem;
+}
+.search_page #searchRelate li a {
+    display: block;
+    color: #444;
+    font-size: .4rem;
+    border-bottom: 1px solid #e6e6e6;
+    width: 100%;
+    height: 100%;
+}
+.equipBox .menu-area li {
   width: 33.33%;
   padding: 0.2rem 0;
   float: left;
 }
 
-.menu-area li a {
+.equipBox .menu-area li a {
   display: block;
   text-align: center;
   color: #333;
   font-size: 0.28rem;
   border-right: 1px solid #d4d4d4;
 }
-.clearfix:before,
-.clearfix:after {
+.equipBox .clearfix:before,
+.equipBox .clearfix:after {
   display: table;
   content: "";
   line-height: 0;
 }
 
-.menu-area {
+.equipBox .menu-area {
   width: 100%;
   height: 1.51rem;
 }
-.clearfix:before,
-.clearfix:after {
+.equipBox .clearfix:before,
+.equipBox .clearfix:after {
   display: table;
   content: "";
   line-height: 0;
 }
-.clearfix:after {
+.equipBox .clearfix:after {
   clear: both;
 }
 
-.clearfix:before,
-.clearfix:after {
+.equipBox .clearfix:before,
+.equipBox .clearfix:after {
   display: table;
   content: "";
   line-height: 0;
 }
-.menu-area li a:before {
+.equipBox .menu-area li a:before {
   content: "";
   display: block;
   margin: 0 auto 0.2rem;
 }
-.menu-area li:nth-child(1) a:before {
+.equipBox .menu-area li:nth-child(1) a:before {
   width: 1.14667rem;
   height: 0.58667rem;
   background: url(http://sh1.hoopchina.com.cn/fis_static/shihuomobile/static/zhuangbei/index/zhuangbei-index-menu-1_f79f337.png)
@@ -475,7 +611,7 @@ export default {
   background-size: contain;
   margin-left: 40%;
 }
-.menu-area li:nth-child(2) a:before {
+.equipBox .menu-area li:nth-child(2) a:before {
   width: 0.58667rem;
   height: 0.58667rem;
   background: url(http://sh1.hoopchina.com.cn/fis_static/shihuomobile/static/zhuangbei/index/zhuangbei-index-menu-2_4b3ef21.png)
@@ -484,7 +620,7 @@ export default {
   background-size: contain;
 }
 
-.menu-area li:nth-child(3) a:before {
+.equipBox .menu-area li:nth-child(3) a:before {
   width: 0.56rem;
   height: 0.50667rem;
   background: url(http://sh1.hoopchina.com.cn/fis_static/shihuomobile/static/zhuangbei/index/zhuangbei-index-menu-3_680282c.png)
@@ -493,18 +629,17 @@ export default {
   background-size: contain;
 }
 
-.banner-area {
+.equipBox .banner-area {
   position: relative;
   height: 3.9rem;
-  overflow: hidden;
 }
 
-.banner-area .bg-img img {
+.equipBox .banner-area .bg-img img {
   width: 100%;
   height: 3.9rem;
 }
 
-.banner-area .bg-color {
+.equipBox .banner-area .bg-color {
   position: absolute;
   left: 0;
   top: 0;
@@ -514,12 +649,12 @@ export default {
   opacity: 0.5;
 }
 
-.banner-area a.click {
+.equipBox .banner-area a.click {
   display: block;
   color: #fff;
 }
 
-.banner-area .ban-txt {
+.equipBox .banner-area .ban-txt {
   position: absolute;
   left: 0;
   top: 0;
@@ -529,28 +664,28 @@ export default {
   color: #fff;
 }
 
-.banner-area .ban-txt .h2 {
+.equipBox .banner-area .ban-txt .h2 {
   font-size: 0.6rem;
   text-shadow: 1px 1px 3px #666;
   text-decoration: none;
 }
-s {
+.equipBox s {
     text-decoration: none;
 }
-.banner-area .ban-txt .h2 img {
+.equipBox .banner-area .ban-txt .h2 img {
   width: 44px;
   height: 44px;
   display: inline-block;
   margin: 0.06667rem 0 0 0.13333rem;
 }
 
-.banner-area .ban-txt .txt {
+.equipBox .banner-area .ban-txt .txt {
   font-size: 28px;
   text-align: center;
   margin-top: 0.1rem;
 }
 
-.banner-area .ban-txt .txt p {
+.equipBox .banner-area .ban-txt .txt p {
   width: 80%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -558,51 +693,51 @@ s {
   margin: 0 auto;
 }
 
-.banner-area .ban-txt .list {
+.equipBox .banner-area .ban-txt .list {
   position: relative;
   z-index: 8;
 }
 
-.banner-area .ban-txt .left {
+.equipBox .banner-area .ban-txt .left {
   position: absolute;
   left: 0.53333rem;
   top: 0.4rem;
 }
 
-.banner-area .ban-txt .left img {
+.equipBox .banner-area .ban-txt .left img {
   width: 0.47rem;
   height: 2.4rem;
 }
 
-.banner-area .ban-txt .right {
+.equipBox .banner-area .ban-txt .right {
   position: absolute;
   right: 0.53333rem;
   top: 0.4rem;
 }
 
-.banner-area .ban-txt .right img {
+.equipBox .banner-area .ban-txt .right img {
   width: 0.33rem;
   height: 2.4rem;
 }
 
-.banner-area .ban-txt .list {
+.equipBox .banner-area .ban-txt .list {
   margin-top: 0.26667rem;
   position: relative;
   z-index: 8;
 }
 
-.clearfix:before,
-.clearfix:after {
+.equipBox .clearfix:before,
+.equipBox .clearfix:after {
   display: table;
   content: "";
   line-height: 0;
 }
 
-.tag-area .tag-list {
+.equipBox .tag-area .tag-list {
   display: -webkit-box;
 }
 
-.tag-area .tag-list a {
+.equipBox .tag-area .tag-list a {
   width: 100%;
   -webkit-box-flex: 1;
   -webkit-box-pack: center;
@@ -615,77 +750,77 @@ s {
   font-size: 0.28rem;
 }
 
-.bg-area {
+.equipBox .bg-area {
   background-color: #f0f3f5;
   height: 0.26667rem;
 }
-.tj-area {
+.equipBox .tj-area {
   padding: 0.26667rem 0 0 0.26667rem;
 }
-.tj-area .h2 {
+.equipBox .tj-area .h2 {
   font-size: 0.32rem;
 }
-.tj-area ul li {
+.equipBox .tj-area ul li {
   padding: 0.26667rem 0;
   border-bottom: 1px #e6e6e6 solid;
   position: relative;
 }
-.tj-area ul li a {
+.equipBox .tj-area ul li a {
   display: block;
   color: #444;
   text-decoration: none;
 }
-.tj-area ul li .imgs {
+.equipBox .tj-area ul li .imgs {
   float: left;
   text-align: center;
   width: 2.5rem;
 }
-.tj-area ul li .imgs img {
+.equipBox .tj-area ul li .imgs img {
   max-width: 100%;
 }
-.tj-area ul li .txt-area {
+.equipBox .tj-area ul li .txt-area {
   padding: 0rem 0.2rem 0 0.33333rem;
   margin-left: 2.46667rem;
   margin-bottom: 0.2rem;
 }
-.tj-area ul li .txt-area .title {
+.equipBox .tj-area ul li .txt-area .title {
   font-size: 0.32rem;
   height: 0.9rem;
   overflow: hidden;
   word-break: break-all;
   word-wrap: break-word;
 }
-.tj-area ul li .txt-area .txt {
+.equipBox .tj-area ul li .txt-area .txt {
   font-size: 26px;
   height: 80px;
   overflow: hidden;
 }
-.tj-area ul li .txt-area .txt img {
+.equipBox .tj-area ul li .txt-area .txt img {
   position: relative;
   margin-top: -2px;
   margin-right: 5px;
   width: 22px;
   display: inline-block;
 }
-.tj-area ul li .txt-area .price {
+.equipBox .tj-area ul li .txt-area .price {
   margin-top: 0.33333rem;
 }
-.tj-area ul li .txt-area .price .t1 {
+.equipBox .tj-area ul li .txt-area .price .t1 {
   float: left;
   font-size: 0.26rem;
 }
-.tj-area ul li .txt-area .price .t2 {
+.equipBox .tj-area ul li .txt-area .price .t2 {
   float: right;
   font-size: 0.24rem;
 }
-.tj-area ul li .txt-area .price .t2 img {
+.equipBox .tj-area ul li .txt-area .price .t2 img {
   vertical-align: middle;
   position: relative;
   margin: -2px 0.06667rem 0 0;
   width: 0.25rem;
   display: inline-block;
 }
-.tj-area ul li .txt-area .price .t1 s {
+.equipBox .tj-area ul li .txt-area .price .t1 s {
   color: #ff4338;
   font-weight: 700;
   text-decoration: none;

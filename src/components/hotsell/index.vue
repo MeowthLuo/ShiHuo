@@ -1,5 +1,5 @@
 <template>
-  <div class="minBox">
+  <div class="min_Box">
     <div class="top_bar">
       <div class="goback">
         <img src="../../../public/img/left.png" @click="toback()" />
@@ -66,7 +66,6 @@ export default {
     this.chillist = data;
     let listdata = await getHotsellList();
     this.info=listdata.data.info;
-    console.log(listdata.data.info)
   },
   data() {
     return {
@@ -83,11 +82,11 @@ export default {
 </script>
 <style>
 
-.minBox {
+.min_Box {
   padding-top: 1rem;
   position: relative;
 }
-.minBox .top_bar {
+.min_Box .top_bar {
   background-color: #f7f7f7;
   height: 1rem;
   width: 100%;
@@ -97,7 +96,7 @@ export default {
   z-index: 90;
   border-bottom: 1px solid #e6e6e6;
 }
-.minBox .top_bar .goback {
+.min_Box .top_bar .goback {
   position: absolute;
   left: 0;
   width: 4em;
@@ -119,11 +118,11 @@ export default {
   display: -moz-flex;
   display: flex;
 }
-.minBox .top_bar .goback img {
+.min_Box .top_bar .goback img {
   display: block;
   height: 82%;
 }
-.minBox .top_bar .d-title {
+.min_Box .top_bar .d-title {
   position: absolute;
   top: 53%;
   left: 50%;
@@ -138,7 +137,7 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.minBox .top_bar .ico_list {
+.min_Box .top_bar .ico_list {
   position: absolute;
   right: 0;
   top: 0;
@@ -151,10 +150,10 @@ export default {
   justify-content: center;
   display: flex;
 }
-.minBox .top_bar .ico_list img {
+.min_Box .top_bar .ico_list img {
   height: 82%;
 }
-.minBox .header_nav {
+.min_Box .header_nav {
   position: absolute;
   width: 36%;
   height: 90px;
@@ -165,7 +164,7 @@ export default {
   z-index: 99;
   display: none;
 }
-.minBox .header_nav:before {
+.min_Box .header_nav:before {
   content: "";
   position: absolute;
   right: 8px;
@@ -174,25 +173,25 @@ export default {
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
 }
-.minBox .header_nav li:first-child {
+.min_Box .header_nav li:first-child {
   border-bottom: 1px solid #5c5c5c;
 }
-.minBox .scroll_top {
+.min_Box .scroll_top {
   position: fixed;
   bottom: 5em;
   right: 10px;
   display: none;
   z-index: 10;
 }
-.minBox .van-tab {
+.min_Box .van-tab {
   font-size: 32px;
   line-height: 0.9rem;
 }
-.minBox .page-content {
+.min_Box .page-content {
   height: 100%;
   width: 100%;
 }
-.minBox .van-tabs--line .van-tabs__wrap {
+.min_Box .van-tabs--line .van-tabs__wrap {
   height: 90px;
 }
 .van-tabs--line {

@@ -81,7 +81,6 @@ export default {
   async created(){
     let data = await getPraise();
     this.info=data.data.info;
-    console.log(data.data.info)
   },
   data() {
     return {

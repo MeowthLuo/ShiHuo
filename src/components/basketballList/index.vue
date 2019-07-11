@@ -52,7 +52,7 @@ export default {
 };
 </script>
 
-<style >
+<style scoped >
 /* show_basket */
 .show_basket {
   background: #fff;

@@ -19,12 +19,24 @@
     <!-- mian -->
     <div class="mian">
       <div class="mian_show">
-        <li class="mian_showP">
+        <li class="mian_showP" v-for="(item,index) in nwesList" :key="index">
           <div class="mian_showImg">
-            <img src="http://shihuo.hupucdn.com/shaiwu/20190619/512x384_1db5bd57-3ddc-4a28-b21e-bbd52ee2f0ac.jpg?imageView2/0/w/500/h/500/interlace/1" alt="">
+            <img
+              :src="item.data.img"
+              alt
+            />
           </div>
-          <divclass="mian_showText">
-            <p></p>
+          <div class="mian_showText">
+            <h1>{{item.data.title}}</h1>
+            <h2>{{item.data.intro}}</h2>
+            <div class="mian_showTextImg">
+              <i>
+                <img
+                  :src="item.data.avatar"
+                  alt
+                />
+              </i>{{item.data.author_name}}
+            </div>
           </div>
         </li>
       </div>
@@ -33,9 +45,20 @@
 </template>
 
 <script>
+import { newestList } from "../../api/newest";
 export default {
   name: "newest",
-  methods: {}
+  methods: {},
+  async created() {
+    let data = await newestList();
+    this.nwesList = data.data.list;
+    console.log(this.nwesList)
+  },
+  data() {
+    return {
+      nwesList:[]
+    }
+  },
 };
 </script>
 
@@ -49,7 +72,7 @@ export default {
   top: 0;
   text-align: center;
   z-index: 90;
-  border-bottom: 1px solid #e6e6e6;
+  border-bottom: 1px sodivd #e6e6e6;
 }
 .new_header {
   position: absolute;
@@ -102,15 +125,51 @@ export default {
   float: left;
   position: relative;
 }
-.mian .mian_show .mian_showP .mian_showImg img{
+.mian .mian_show .mian_showP .mian_showImg img {
   width: 100%;
 }
 .mian .mian_show .mian_showP .mian_showText {
   width: 66%;
   position: relative;
-  margin-left: .26667rem;
-  height: 3rem;
+  margin-left: 0.26667rem;
+  height: 2.5rem;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+}
+.mian .mian_show .mian_showP .mian_showText h1 {
+  font: 12px/1.5 Helvetica, sans-serif;
+  font-size: 0.28rem;
+  color: #333;
+  font-weight: 400;
+  max-height: 1rem;
+  overflow: hidden;
+  word-break: break-all;
+}
+.mian .mian_show .mian_showP .mian_showText h2 {
+  font: 12px/1.5 Helvetica, sans-serif;
+  font-size: 0.28rem;
+  color: #666;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+.mian .mian_show .mian_showP .mian_showText .mian_showTextImg {
+  font-size: 0.28rem;
+  color: #666;
+}
+.mian .mian_show .mian_showP .mian_showText .mian_showTextImg i {
+  display: inline-block;
+  border-radius: 0.2rem;
+  width: 0.4rem;
+  height: 0.4rem;
+  overflow: hidden;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+.mian .mian_show .mian_showP .mian_showText .mian_showTextImg i img {
+  width: 100%;
 }
 </style>  

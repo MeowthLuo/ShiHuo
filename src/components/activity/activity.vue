@@ -1,6 +1,9 @@
 <template>
-     <div id="wrap">
+
+     <div id="wrap" ref="wrap">
+           <keep-alive>
         <!-- 头部 -->
+        <div class="mine">
         <div class="menuTop">
             <ul class="menuTopUl">
                 <li v-for="(item,index) in actBanner" :key="index" @click="handclick(index)" :class="active==index?'show':''">
@@ -11,59 +14,87 @@
             </ul>
         </div>
         <div class="hotBrand">
-                <h2>
-                    <span></span>
-                    热销产品
-                    <span></span>
-                </h2>
-            </div>
-        <div class="new">
+            <h2>
+                <span></span>
+                热销产品
+                <span></span>
+            </h2>
+        </div>
+    
+        <div class="new" ref="new">
             <h2>
                 <span></span>
                 最新上架
                 <span></span>
             </h2>
-            <div class="list-block" v-for="(item,index) in actList" :key="index">
-                
+           
+              <Loading v-show="!loading"></Loading>
+            <div class="list-block" v-for="(item,index) in actList" :key="index" v-show="loading"> 
                 <p class="lista">
                    <span>{{item.title}}</span><span>{{item.subtitle}}</span>
                 </p>
-                <ul class="newUl">
-                    <li class="newLi" v-for="(itm,indx) in item.goods_info" :key="indx">
-                        <a class="newA">
-                            <div class="imglist">
-                                <img :src="itm.img"/>
-                            </div>
-                            <div class="imgtitle">{{itm.title}}</div>
-                            <div class="price">
-                                <span v-if="itm.quan_price==''">￥{{itm.price}}</span>
-                                <span v-if="!itm.quan_price==''">券后{{itm.price}}</span>
-                            </div>
-                        </a>
-                    </li>         
-                </ul>
+              <ul class="newUl">
+                  <li class="newLi" v-for="(itm,indx) in item.goods_info" :key="indx">
+                      <a class="newA">
+                          <div class="imglist">
+                              <img :src="itm.img"/>
+                          </div>
+                          <div class="imgtitle">{{itm.title}}</div>
+                          <div class="price">
+                              <span v-if="itm.quan_price==''">￥{{itm.price}}</span>
+                              <span v-if="!itm.quan_price==''">券后{{itm.price}}</span>
+                          </div>
+                      </a>
+                  </li>         
+              </ul>
             </div>
+             
         </div>
+    
     </div>
+     </keep-alive>
+</div>
+
 </template>
 
 <script>
 import { actList } from "api/home.js";
+import Loading from "common/loading/loading.vue";
+import BScroll from "better-scroll";
 export default {
   name: "actList",
-  async created() {
-    let data = await actList();
-    this.actList = data.data.newDate;
+  components: {
+    Loading
   },
-  methods:{
-      handclick(index){
-          this.active=index
+  created() {
+    this.handlegoods(this.page);
+  },
+  methods: {
+    handclick(index) {
+      this.active = index;
+    },
+    handlepullingUp(cb) {
+      this.bscroll.on("pullingUp", () => {
+        cb();
+      });
+    },
+
+    async handlegoods(page) {
+      let data = await actList(page);
+      if (this.actList != []) {
+        this.loading = true;
       }
+      this.actList = [...this.actList, ...data.data.newDate];
+
+      this.bscroll.finishPullUp();
+      this.bscroll.refresh()
+      this.page++;
+    }
   },
   data() {
     return {
       actList: [],
-      active:"",
+      active: "",
       actBanner: [
         {
           url:
@@ -85,18 +116,36 @@ export default {
           url:
             "http://sh1.hoopchina.com.cn/app/assets/youhui/1.0.2/images/menu_qt_33e8d13.png"
         }
-      ]
+      ],
+      loading: "",
+      page: 1
     };
+  },
+  mounted() {
+    this.bscroll = new BScroll(this.$refs.wrap, {
+      pullUpLoad: true
+    });
+
+    this.handlepullingUp(() => {
+      setTimeout(()=>{
+        this.handlegoods(this.page);
+         console.log(1);
+      },500)
+     
+     
+
+    });
   }
 };
 </script>
 
 <style scoped>
-.show{
-    background: red
+.show {
+  background: red;
 }
 #wrap {
   background-color: #f0f3f5;
+  height: 100%;
 }
 .menuTop {
   width: 100%;
@@ -123,7 +172,7 @@ export default {
 }
 .hotBrand > h2 {
   text-align: center;
-  font-size: 14px;
+  font-size: 25px;
 }
 .hotBrand > h2 > span {
   border-top: 1px solid #dedede;
@@ -141,13 +190,13 @@ export default {
   background-color: #fff;
   margin-bottom: 0.2rem;
 }
-.new> h2 {
+.new > h2 {
   height: 0.8rem;
   line-height: 0.8rem;
   font-size: 0.28rem;
   text-align: center;
   align-items: center;
-  background: #fff
+  background: #fff;
 }
 .new > h2 > span {
   border-top: 0.05rem solid #dedede;
@@ -160,12 +209,11 @@ export default {
   display: block;
   color: #333;
   height: 0.6rem;
-  line-height: .6rem;
+  line-height: 0.6rem;
   text-align: center;
   align-items: center;
 }
-.lista > span:nth-child(2){
-
+.lista > span:nth-child(2) {
 }
 .lista > span:nth-child(2) {
   color: #dd1712;

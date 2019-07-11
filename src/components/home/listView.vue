@@ -10,7 +10,7 @@
             </div>
             <div class="list-submenu ">
                 <ul class="listsubmenu">
-                    <li v-for="(item,index) in submenu" :key="index" @click="handTo(index)" :class="act==index?'bdg':''">
+                    <li v-for="(item,index) in submenu" :key="index" @click="handTo(index)" :class="act==index?'bdg':'bd'">
                         {{item}}
                     </li>
                 </ul>
@@ -19,8 +19,9 @@
             
             <div  class="list-view">
                
-                <ul class="shihuo-news" v-for="(it, idx) in ulList" :key="idx"  v-if="idx==act">
-                    <li v-for="(item,index) in homeList[idx]" :key="index">
+                <ul class="shihuo-news" v-for="(it, idx) in ulList" :key="idx"  v-if="idx==act" >
+                     <Loading v-show="!loading"></Loading>
+                    <li v-for="(item,index) in homeList[idx]" :key="index" v-show="loading">
                         <a class="link">
                             <div class="imgs">
                                 <img :src="item.data.img"/>
@@ -65,7 +66,7 @@
                         </a>
                     </li>
                 </ul>
-         
+            
             </div>
     </div>
 </template>
@@ -76,7 +77,12 @@ import{oneList} from "api/home.js"
 import{twoList} from "api/home.js"
 import{threeList} from "api/home.js"
 import { log } from 'util';
+import Loading from 'common/loading/loading.vue'
 export default {
+    name:'liatview',
+    components:{
+        Loading
+    },
     data(){
         return{
             listview:[
@@ -101,12 +107,16 @@ export default {
             active:0,
             act:0,
 
-            homeList:[]
+            homeList:[],
+            loading:""
         }
     },
     methods:{
         handToggle(index){
             this.active=index
+             if (this.active != []) {
+            this.loading = true;
+      }
         },
         handTo(index){
             this.act=index
@@ -115,16 +125,15 @@ export default {
     async created(){
         let data=await homeList(11)
         this.homeList.push(data.data);
-
-
-
-
         let dataone= await oneList()
         this.homeList.push(dataone.data);
         let datatwo= await twoList()
         this.homeList.push(datatwo.data);
         let datathree= await threeList()
         this.homeList.push(datathree.data)
+        if (this.homeList != []) {
+            this.loading = true;
+      }
     },
 }
 </script>
@@ -139,7 +148,9 @@ export default {
     .bdg{
         color: #fff;
         background: #FF4338
-
+    }
+    .bd{
+        background: #e6e6e6
     }
    .listmenu{
         display: flex;

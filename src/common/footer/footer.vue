@@ -2,7 +2,7 @@
     
     <div id="tabBar">
     <ul>
-        <router-link v-for="(item,index) in tabBars" :key="index" :class="active==index?'footshow':''" @click="handClick(index)" :to="item.path" tag
+        <router-link v-for="(item,index) in tabBars" :key="index" :class="active==index?'footshow':''"  @click.native="handle(index)"  :to="item.path" tag
         ="li">
             <div>
                 <img :src="item.url" v-show="!(active==index)"/>
@@ -36,7 +36,7 @@ export default {
                     url:"http://sh1.hoopchina.com.cn/images/trademobile/common/find.png?201903111600",
                     url1:"http://sh1.hoopchina.com.cn/images/trademobile/common/find-on.png?201903111600",
                     title:"发现",
-                    path:"/discover"
+                    path:"/discover/discoverShow"
                 },
                 {
                     url:"http://sh1.hoopchina.com.cn/images/trademobile/common/zhuangbei.png?201903111600",
@@ -56,8 +56,8 @@ export default {
         }
     },
    methods:{
-       handClick(index){
-           this.active=index
+       handle(index){
+           this.active=index;
        }
    }
 }

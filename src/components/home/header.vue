@@ -16,7 +16,7 @@ export default {
         width: 100%;
         overflow: hidden;
         position: absolute;
-        max-width: 10rem;
+
         top: 0;
         z-index: 10;
         border: 0;

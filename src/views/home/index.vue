@@ -2,6 +2,7 @@
 
      
     <div class="home">
+    
         <Header></Header>
         
         <Banner>
@@ -17,8 +18,8 @@
         <Hot></Hot>
         <activity></activity>
         <listView></listView>
-
 </div>
+
 </template>
 
 
@@ -39,6 +40,7 @@ export default {
         Activity,
         ListView
     },
+ 
    
 }
 </script>

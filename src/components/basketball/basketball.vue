@@ -1,10 +1,10 @@
 <template>
       <div id="wrap">
         <div class="head">
-            <div class="goback">
-                <img
-                    src="http://sh1.hoopchina.com.cn/fis_static/shihuomobile/static/common/widget/header/head_back_b142dc1.png" />
-            </div>
+            <router-link class="goback" to="/home" tag="div">
+                
+                    <img src="http://sh1.hoopchina.com.cn/fis_static/shihuomobile/static/common/widget/header/head_back_b142dc1.png" />
+                </router-link>
             <span class="d-title">
                 篮球专区
             </span>
@@ -68,10 +68,10 @@
                         <a>
                             <div class="img">
                                 <img
-                                    src="http://shihuo.hupucdn.com/appZone/201811/2311/e5e9c867a2016694abe40d752c81080a.jpg" />
+                                    src="http://shihuo.hupucdn.com/appZone/201904/1215/74d68d16fe92f589562be729a89ee9a3.jpg" />
                             </div>
-                            <h3 class="p1">实战性价比之选</h3>
-                            <span class="p2">球星支线</span>
+                            <h3 class="p1">5折上新，95分专属抢购</h3>
+                            <span class="p2">低价折扣超值精选</span>
                         </a>
                     </li>
                 </ul>
@@ -331,7 +331,6 @@ export default {
         display: block;
         height: 1.33rem;
         width: 1.44rem;
-        font-size: .16rem;
         text-align: center;
     }
 
@@ -359,7 +358,7 @@ export default {
         text-overflow: ellipsis;
         white-space: nowrap;
         width: 48%;
-        padding-left: .33333rem;
+        padding-left: .53333rem;
         border-right: 1px solid #e6e6e6;
     }
 
@@ -421,10 +420,15 @@ export default {
 
     .p1 {
         margin: .08rem 0 .08rem 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow:hidden;
+        font-size: 24px;
     }
 
     .p2 {
-        margin: 0 .08rem
+        margin: 0 .08rem;
+        font-size: 24px;
     }
 
     .loveList>h2 {

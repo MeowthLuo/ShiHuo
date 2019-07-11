@@ -1,53 +1,17 @@
 <template>
-  <div>
+  <div class="discover">
     <!-- banna -->
-    <div class="opn">
-      <div class="ban">
-        <li>
-          <a href>
-            <img
-              src="http://shihuo.hupucdn.com/appHome/201811/1200/843bce9c5e893f33ccb55e1e7acd61fd.jpg?imageView2/2/w/750/h/268/interlace/1"
-              alt
-            />
-          </a>
-        </li>
-        <li>
-          <a href>
-            <img
-              src="http://shihuo.hupucdn.com/appHome/201812/0920/b42ed3c3eca82633072c47a1bf3b53a9.jpg?imageView2/2/w/750/h/268/interlace/1"
-              alt
-            />
-          </a>
-        </li>
-        <li>
-          <a href>
-            <img
-              src="http://shihuo.hupucdn.com/appHome/201812/1023/736a64832b272c088c9fe01837b0ac4e.jpg?imageView2/2/w/750/h/268/interlace/1"
-              alt
-            />
-          </a>
-        </li>
-        <li>
-          <a href>
-            <img
-              src="http://shihuo.hupucdn.com/appHome/201812/0900/d31d0002502c7181c272e5bac796375e.jpg?imageView2/2/w/750/h/268/interlace/1"
-              alt
-            />
-          </a>
-        </li>
-        <li>
-          <a href>
-            <img
-              src="http://shihuo.hupucdn.com/appHome/201812/1300/0767ee290a165c7c519696b8c047436c.jpg?imageView2/2/w/750/h/268/interlace/1"
-              alt
-            />
-          </a>
-        </li>
-      </div>
-    </div>
-
+    <Banner class="opn">
+      <template v-slot:banner="props">
+        <div class="swiper-wrapper ban"  ref="opn">
+          <div class="swiper-slide" v-for="(item,index) in dicban" :key="index">
+            <img :src="item" />
+          </div>
+        </div>
+      </template>
+    </Banner>
     <!-- npplk -->
-    <div class="npplk">
+    <div class="npplk" ref="npplk">
       <router-link to="/newest" class="npplk_1">
         <li>
           <img
@@ -87,7 +51,7 @@
     </div>
 
     <!-- mian -->
-    <div class="hmian">
+    <div class="hmian" ref="hmian">
       <li class="hmian_p">
         <h2>热门话题</h2>
       </li>
@@ -132,21 +96,35 @@
 
     <!-- nav -->
     <div class="nav">
-      <div class="nav_one">
+      <div class="nav_one" :class="{'pos_pp': disfals }" ref="nav_one" id="nav_one9">
         <div class="nav_tow" @click="fn1">
-          <router-link v-for="(item,index) in navList" :key="index" tag="li" :to="item.path" class="nav_s">{{item.tile}}</router-link>
+          <router-link
+            v-for="(item,index) in navList"
+            :key="index"
+            tag="li"
+            :to="item.path"
+            class="nav_s"
+          >{{item.tile}}</router-link>
         </div>
       </div>
-      <router-view />
+      <router-view :class="{'show_pad': disfals }" />
     </div>
   </div>
 </template>
 
 <script>
+import Banner from "components/home/banner.vue";
 export default {
   name: "discover",
   data() {
     return {
+      dicban: [
+        "http://shihuo.hupucdn.com/appHome/201811/1200/843bce9c5e893f33ccb55e1e7acd61fd.jpg?imageView2/2/w/750/h/268/interlace/1",
+        "http://shihuo.hupucdn.com/appHome/201812/0920/b42ed3c3eca82633072c47a1bf3b53a9.jpg?imageView2/2/w/750/h/268/interlace/1",
+        "http://shihuo.hupucdn.com/appHome/201812/1023/736a64832b272c088c9fe01837b0ac4e.jpg?imageView2/2/w/750/h/268/interlace/1",
+        "http://shihuo.hupucdn.com/appHome/201812/0900/d31d0002502c7181c272e5bac796375e.jpg?imageView2/2/w/750/h/268/interlace/1",
+        "http://shihuo.hupucdn.com/appHome/201812/1300/0767ee290a165c7c519696b8c047436c.jpg?imageView2/2/w/750/h/268/interlace/1"
+      ],
       dicList: [],
       navList: [
         {
@@ -182,32 +160,51 @@ export default {
           tile: "球鞋90秒"
         }
       ],
-      
+      disfals: false,
+      tpkj:1
     };
   },
-  created() {
-    $(function() {
-      $("body").scroll(function() {
-        var aa = $(this).scrollTop();
-        // console.log(aa);
-        if (aa > 351) {
-          document.getElementsByClassName("nav_one")[0].classList.add("pos_pp");
-        } else {
-          document.getElementsByClassName("nav_one")[0].className = "nav_one";
-        }
-      });
-      // console.log($("nav_tow").children());
-    });
+  components: {
+    Banner
+  },
+  created(){
+    
   },
   methods: {
-    fn1(){
-      console.log(document.getElementsByTagName("body")[0].scrollTop = 351)
+    fn1() {
+      document.getElementById("app").scrollTop = this.tpkj;
+      // console.log(this.tpkj)
+    },
+    disScroTop() {
+      let hh = document.getElementById("app").scrollTop;
+      let heightTop = this.$refs.nav_one.getBoundingClientRect().top;
+      let heightTop1 = this.$refs.opn.getBoundingClientRect().height
+      let heightTop2 = this.$refs.npplk.getBoundingClientRect().height
+      let heightTop3 = this.$refs.hmian.getBoundingClientRect().height
+      let heightTop4 = this.$refs.nav_one.getBoundingClientRect().height
+      // console.log("滚动条的滚动距离" + hh);
+      // console.log(heightTop);
+      let hp = heightTop1 + heightTop2 + heightTop3 + heightTop4/2
+      this.tpkj = hp;
+      // console.log(hp)
+      if (hp <= hh) {
+        // console.log(this.disfals);
+        this.disfals = true;
+      } else if (hp >= hh) {
+        this.disfals = false;
+      }
     }
+  },
+  mounted() {
+    window.addEventListener("scroll", this.disScroTop, true);
   }
 };
 </script>
 
-<style scoped>
+<style>
+.show_pad {
+  padding-top: 0.81rem;
+}
 /* banna */
 body {
   background: #f7f7f7;
@@ -216,11 +213,9 @@ body {
 .opn {
   background: #fff;
   width: 100%;
-  height: 2.68rem;
-  overflow: auto;
+  height: 2.68rem !important;
 }
-
-.opn .ban {
+.ban {
   width: 37.5rem;
   height: 2.68rem;
   overflow: hidden;
@@ -329,6 +324,7 @@ body {
 .pos_pp {
   position: absolute;
   top: 0;
+  left: 0;
 }
 
 .nav {

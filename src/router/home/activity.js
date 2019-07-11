@@ -4,7 +4,8 @@ export default {
     component:()=>import('components/activity/activity.vue'),
     name:"activity",
     meta:{
-        footerFlag:false
+        footerFlag:true,
+        keepAlive: true
     }
 
 }

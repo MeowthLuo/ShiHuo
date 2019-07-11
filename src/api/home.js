@@ -15,7 +15,7 @@ export  const  ballList=()=>http("get","/abc/sports/getNews?pageSize=20&param_st
 
 export  const  discussList=()=>http("get","/abc/topic/detailList?page=1&sort=new&page_size=20&id=239")
 
-export  const actList=()=>http("get","/abc/youhui/brandSale11?r=0&news_id=0&page=1")
+export  const actList=(page)=>http("get","/abc/youhui/brandSale11",{page:page})
 
 export  const homeList=()=>http("get","/abc/homefis/getNews?pageSize=20&param_str=&type=&channel_type=")
 

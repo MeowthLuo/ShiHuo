@@ -3,13 +3,11 @@
     <!-- show -->
     <div class="show">
       <div class="show_one">
-        <div class="show_tow" v-for="(item,index) in dicList" :key="index">
+        <Loading v-show="!loading"></Loading>
+        <div class="show_tow" v-for="(item,index) in dicList" :key="index" v-show="loading">
           <li class="show_tow_1">
             <div class="show_tow_2">
-              <img
-                :src="item.data.avatar"
-                alt
-              />
+              <img :src="item.data.avatar" alt />
             </div>
             <div class="show_tow_11">
               <p class="show_p1">{{item.data.author_name}}</p>
@@ -19,10 +17,7 @@
           <li class="show_tow3">
             <div class="show_tow3_p">{{item.data.title}}</div>
             <p class="show_tow3_img">
-              <img
-                :src="item.data.img"
-                alt
-              />
+              <img :src="item.data.img" alt />
             </p>
             <div class="show_tow3_tag">
               <span class="like">{{item.data.praise}}</span>
@@ -37,18 +32,26 @@
 
 <script>
 import { discoverList } from "../../api/discover";
+import Loading from "common/loading/loading.vue";
 export default {
-  name:"descoverShow",
+  name: "descoverShow",
+  components: {
+    Loading
+  },
   async created() {
     let data = await discoverList();
     this.dicList = data.data;
+    if (this.dicList != []) {
+      this.loading = true;
+    }
     // console.log(this.dicList)
   },
   data() {
     return {
-      dicList:[],
-    }
-  },
+      dicList: [],
+      loading:""
+    };
+  }
 };
 </script>
 
